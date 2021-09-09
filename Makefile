@@ -5,122 +5,91 @@
 #                                                     +:+ +:+         +:+      #
 #    By: rballage <rballage@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2018/11/07 16:39:25 by rballage          #+#    #+#              #
-#    Updated: 2020/09/14 10:04:08 by rballage         ###   ########.fr        #
+#    Created: 2021/09/08 14:34:42 by rballage          #+#    #+#              #
+#    Updated: 2021/09/09 09:45:11 by rballage         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = libftprintf.a
+NAME = server
+NAME2 = client
 
-SRC_PATH = src
+SRC_NAME =	main_server.c \
+			ft_putchar.c \
+			ft_putstr.c \
+			ft_putnbr.c \
+			s_add_bit.c \
+			s_bufferise.c \
+			s_clean.c \
+			s_handler.c \
+			s_parse_string.c \
+			s_setlen.c \
+			ft_memset.c
 
-SRC_NAME =  handle_c.c \
-			handle_d.c \
-			handle_d_h.c \
-			handle_d_hh.c \
-			handle_d_l.c \
-			handle_d_ll.c \
-			handle_f.c \
-			handle_f_l_maj.c \
-			handle_null.c \
-			handle_o.c \
-			handle_o_h.c \
-			handle_o_hh.c \
-			handle_o_l.c \
-			handle_o_ll.c \
-			handle_p.c \
-			handle_percent.c \
-			handle_s.c \
-			handle_u.c \
-			handle_u_h.c \
-			handle_u_hh.c \
-			handle_u_l.c \
-			handle_u_ll.c \
-			handle_x.c \
-			handle_x_h.c \
-			handle_x_h_maj.c \
-			handle_x_hh.c \
-			handle_x_hh_maj.c \
-			handle_x_l.c \
-			handle_x_l_maj.c \
-			handle_x_ll.c \
-			handle_x_ll_maj.c \
-			handle_x_maj.c \
-			set_field.c \
-			set_minus.c \
-			set_plus.c \
-			set_precision.c \
-			set_sharp.c \
-			set_space.c \
-			set_zero.c \
-			ft_baselen.c \
-			search_setters.c \
-			attribute_check.c \
-			attributes_copy.c \
-			attributes_calculs.c \
-			calcul_min_field.c \
-			calcul_neg_min_field.c \
-			calcul_plus.c \
-			calcul_precision.c \
-			calcul_sharp.c \
-			check_casts.c \
-			check_casts_llhh.c \
-			conv_hexa.c \
-			conv_octal.c \
-			ft_ftoa.c \
-			ft_printf.c \
-			list.c
 
-CPPFLAGS = -I libft/includes/ -MMD
+SRC2_NAME =	c_finished.c \
+			main_client.c \
+			c_quit.c \
+			c_send_bit.c \
+			c_send_len.c \
+			c_send.c \
+			c_stopclean.c \
+			ft_atoi.c \
+			ft_strlen.c
 
+SRC_PATH = src_server
+OBJ_PATH = obj_server
+
+SRC2_PATH = src_client
+OBJ2_PATH = obj_client
+
+INCLUDES = includes
 CC = gcc
-
-CFLAGS = -Werror -Wall -Wextra
+CCFLAGS = -Wall -Wextra -Werror
+CPPFLAGS = -I $(INCLUDES) -MMD
 
 OBJ_NAME = $(SRC_NAME:.c=.o)
-
-OBJ_PATH = obj
-
-DFLAGS =
-
-HEADER_PATH = includes/
-
-HEADER_NAME = ft_printf.h
-
+SRC = $(addprefix $(SRC_PATH)/,$(SRC_NAME))
 OBJ = $(addprefix $(OBJ_PATH)/,$(OBJ_NAME))
 
-SRC = $(addprefix $(SRC_PATH)/,$(SRC_NAME))
+OBJ2_NAME = $(SRC2_NAME:.c=.o)
+SRC2 = $(addprefix $(SRC2_PATH)/,$(SRC2_NAME))
+OBJ2 = $(addprefix $(OBJ2_PATH)/,$(OBJ2_NAME))
 
-HEADER = $(addprefix $(HEADER_PATH)/,$(HEADER_NAME))
-
-all: $(NAME)
+all: $(NAME) $(NAME2)
 
 $(NAME): $(OBJ)
-	$(MAKE) -C libft/
-	cp libft/libft.a ./$(NAME)
-	ar rcs $@ $^
-	ranlib $@
+	$(CC) $(CCFLAGS) $(CPPFLAGS) -o $@ $^
+
+$(NAME2): $(OBJ2)
+	$(CC) $(CCFLAGS) $(CPPFLAGS) -o $@ $^
 
 $(OBJ_PATH)/%.o: $(SRC_PATH)/%.c | $(OBJ_PATH)
-	$(CC) $(CFLAGS) $(DFLAGS) $(CPPFLAGS) -I $(HEADER_PATH) -o $@ -c $<
+	$(CC) $(CCFLAGS) $(CPPFLAGS) -o $@ -c $<
+
+$(OBJ2_PATH)/%.o: $(SRC2_PATH)/%.c | $(OBJ2_PATH)
+	$(CC) $(CCFLAGS) $(CPPFLAGS) -o $@ -c $<
 
 $(OBJ_PATH):
 	@mkdir $(OBJ_PATH) 2> /dev/null || true
 
-clean:
-	make clean -C libft/
-	rm -rf $(OBJ_PATH)
+$(OBJ2_PATH):
+	@mkdir $(OBJ2_PATH) 2> /dev/null || true
 
-fclean: clean
-	make fclean -C libft/
-	rm -f $(NAME)
-	rm -f libft.a
+clean:
+	rm -f $(OBJ) $(OBJ2) $(OBJ:.o=.d) $(OBJ2:.o=.d)
+	@rmdir $(OBJ_PATH) 2> /dev/null || true
+	@rmdir $(OBJ2_PATH) 2> /dev/null || true
+
+fclean:	clean
+	@rm -f $(NAME) $(NAME2)
 
 re: fclean
-	$(MAKE) all
+	$(MAKE)
 
-bonus: $(NAME)
+norme:
+	norminette $(SRC)
+	norminette $(INCLUDES)
 
 .PHONY: make clean fclean re
 
--include $(OBJ:.o=.d)
+-include $(OBJ:.o=.d) $(OBJ2:.o=.d)
