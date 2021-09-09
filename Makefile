@@ -6,7 +6,7 @@
 #    By: rballage <rballage@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/09/08 14:34:42 by rballage          #+#    #+#              #
-#    Updated: 2021/09/09 09:45:11 by rballage         ###   ########.fr        #
+#    Updated: 2021/09/09 14:02:52 by rballage         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -86,8 +86,11 @@ fclean:	clean
 re: fclean
 	$(MAKE)
 
+bonus: $(NAME) $(NAME2)
+
 norme:
-	norminette $(SRC)
+	norminette $(SRC_PATH)
+	norminette $(SRC2_PATH)
 	norminette $(INCLUDES)
 
 .PHONY: make clean fclean re
