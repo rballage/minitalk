@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   bufferise.c                                        :+:      :+:    :+:   */
+/*   s_bufferise.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rballage <rballage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/08 15:25:58 by rballage          #+#    #+#             */
-/*   Updated: 2021/09/08 15:26:56 by rballage         ###   ########.fr       */
+/*   Updated: 2021/09/09 12:10:15 by rballage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/server.h"
 
-void			bufferise(char byte, int *index, t_bool error)
+void	bufferise(char byte, int *index, t_bool error)
 {
 	static char	buffer[BUFF_SIZE];
 	static int	buff_index = 0;

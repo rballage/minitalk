@@ -6,13 +6,13 @@
 /*   By: rballage <rballage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/08 15:29:50 by rballage          #+#    #+#             */
-/*   Updated: 2021/09/08 15:35:56 by rballage         ###   ########.fr       */
+/*   Updated: 2021/09/09 12:09:14 by rballage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/server.h"
 
-int 					main(void)
+int	main(void)
 {
 	struct sigaction	info;
 
@@ -27,5 +27,5 @@ int 					main(void)
 	sigaction(SIGUSR2, &info, NULL);
 	while (1)
 		;
-  	return (0);
+	return (0);
 }

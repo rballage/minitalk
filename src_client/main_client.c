@@ -6,13 +6,13 @@
 /*   By: rballage <rballage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/08 15:28:40 by rballage          #+#    #+#             */
-/*   Updated: 2021/09/09 08:40:28 by rballage         ###   ########.fr       */
+/*   Updated: 2021/09/09 12:02:43 by rballage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/client.h"
 
-int			main(int ac, char **av)
+int	main(int ac, char **av)
 {
 	pid_t	pid;
 	int		len;
@@ -34,6 +34,7 @@ int			main(int ac, char **av)
 		}
 		quit("ERROR - TIMEOUT\n", EXIT_FAILURE);
 	}
-	else quit("ERROR - USAGE: ./client <SERVER_PID> <STRING>\n", EXIT_FAILURE);
+	else
+		quit("ERROR - USAGE: ./client <SERVER_PID> <STRING>\n", EXIT_FAILURE);
 	return (-1);
 }

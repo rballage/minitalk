@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   send.c                                             :+:      :+:    :+:   */
+/*   c_send.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rballage <rballage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/08 15:16:04 by rballage          #+#    #+#             */
-/*   Updated: 2021/09/08 15:19:47 by rballage         ###   ########.fr       */
+/*   Updated: 2021/09/09 12:01:39 by rballage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/client.h"
 
-int				send(pid_t pid, char *str)
+int	send(pid_t pid, char *str)
 {
 	static int	nth_bit = 7;
 	static char	*bytes;
@@ -29,7 +29,8 @@ int				send(pid_t pid, char *str)
 		bytes++;
 		if (*bytes)
 			nth_bit = 7;
-		else return (stopclean(bytes, &nth_bit));
+		else
+			return (stopclean(bytes, &nth_bit));
 	}
 	return (1);
 }

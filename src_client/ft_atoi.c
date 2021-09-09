@@ -6,18 +6,20 @@
 /*   By: rballage <rballage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/12 19:27:22 by rballage          #+#    #+#             */
-/*   Updated: 2021/09/09 09:26:51 by rballage         ###   ########.fr       */
+/*   Updated: 2021/09/09 12:15:17 by rballage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 // #include "../includes/client.h"
 
-static int				ft_isdigit(int c)
+static int	ft_isdigit(int c)
 {
-	return ((c >= 48 && c <= 57) ? 1 : 0);
+	if (c >= 48 && c <= 57)
+		return (1);
+	return (0);
 }
 
-int						ft_atoi(const char *str)
+int	ft_atoi(const char *str)
 {
 	int					sign;
 	unsigned long long	n;
@@ -38,7 +40,9 @@ int						ft_atoi(const char *str)
 			n = n * 10 + (*str - 48);
 		str++;
 	}
-	if (n > 9223372036854775807)
-		return (sign == -1 ? 0 : -1);
+	if (n > 9223372036854775807 && sign == -1)
+		return (0);
+	else if (n > 9223372036854775807 && sign == 0)
+		return (-1);
 	return ((int)(n * sign));
 }

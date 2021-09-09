@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse_string.c                                     :+:      :+:    :+:   */
+/*   s_parse_string.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rballage <rballage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/08 15:24:24 by rballage          #+#    #+#             */
-/*   Updated: 2021/09/08 15:27:25 by rballage         ###   ########.fr       */
+/*   Updated: 2021/09/09 13:32:06 by rballage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/server.h"
 
-int				parse_string(int sig, int *len, char *cnt, char *done, int pid)
+int	parse_string(int sig, int *tab)
 {
 	static int	nth_bit = 7;
 	static char	byte = 0;
@@ -21,11 +21,11 @@ int				parse_string(int sig, int *len, char *cnt, char *done, int pid)
 	if (sig == -1)
 	{
 		bufferise(byte, &index, true);
-		clean(&nth_bit, &index, len, cnt, done);
+		clean(&nth_bit, &index, tab);
 		return (1);
 	}
 	if (!index)
-		index = *len;
+		index = tab[LEN];
 	add_bit(&byte, &nth_bit, sig);
 	if (nth_bit == -1)
 	{
@@ -34,8 +34,8 @@ int				parse_string(int sig, int *len, char *cnt, char *done, int pid)
 		if (index <= 0)
 		{
 			ft_putchar('\n');
-			clean(&nth_bit, &index, len, cnt, done);
-			kill(pid, SIGUSR1);
+			clean(&nth_bit, &index, tab);
+			kill(tab[PID], SIGUSR1);
 		}
 	}
 	return (1);
